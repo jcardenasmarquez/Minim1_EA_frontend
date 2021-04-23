@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<div class="row">
+    <div class="col-sm">
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5>Research Groups list</h5> 
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-light" (click)="getGroups()">Refresh</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li *ngFor="let group of groupsList; let i = index"
+                    class="list-group-item list-group-item-action"
+                    (click)="getGroup(i)">
+                    {{ group.name }}
+                    </li>
+                </ul>
+            </div>
+          </div>
+    </div>
+    <div class="col-sm" *ngIf="visibleGroup">
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">
+                <h5>Edit Group</h5>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="editGroupForm" (ngSubmit)="editGroup()">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input [class.is-invalid]="editGroupForm.get('groupNameEdit').touched && editGroupForm.get('groupNameEdit').invalid" 
+                        type="text" class="form-control" formControlName="groupNameEdit" placeholder="Group name" [(ngModel)] = "selectedGroup.name">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input [class.is-invalid]="editGroupForm.get('groupDescriptionEdit').touched && editGroupForm.get('groupDescriptionEdit').invalid" 
+                        type="text" class="form-control" formControlName="groupDescriptionEdit" placeholder="Group description" [(ngModel)] = "selectedGroup.description">
+                    </div>
+                    <div class="form-group">
+                        <label>Link</label>
+                        <input [class.is-invalid]="editGroupForm.get('groupLinkEdit').touched && editGroupForm.get('groupLinkEdit').invalid" 
+                        type="text" class="form-control" formControlName="groupLinkEdit" placeholder="Group URL" [(ngModel)] = "selectedGroup.link">
+                    </div>
+                    <div class="form-group">
+                        <label>Responsible</label>
+                        <input [class.is-invalid]="editGroupForm.get('groupResponsibleEdit').touched && editGroupForm.get('groupResponsibleEdit').invalid" 
+                        type="text" class="form-control" formControlName="groupResponsibleEdit" placeholder="Group responsible" [(ngModel)] = "selectedGroup.responsible">
+                    </div>
+                    <div class="span6" style="float: none; margin: 0 auto;">
+                        <button class="btn btn-info" type="submit" [disabled]="!editGroupForm.valid">Update Group</button> 
+                    </div>
+                </form>
+            </div>
+          </div>
+    </div>
+    <div class="col-sm">
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">
+                <h5>Add new res. group</h5>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="addGroupForm" (ngSubmit)="addGroup()">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input [class.is-invalid]="addGroupForm.get('groupNameInput').touched && addGroupForm.get('groupNameInput').invalid" 
+                        type="text" class="form-control" formControlName="groupNameInput" placeholder="Enter group name">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input [class.is-invalid]="addGroupForm.get('groupDescriptionInput').touched && addGroupForm.get('groupDescriptionInput').invalid" 
+                        type="text" class="form-control" formControlName="groupDescriptionInput" placeholder="Enter group description">
+                    </div>
+                    <div class="form-group">
+                        <label>Link</label>
+                        <input [class.is-invalid]="addGroupForm.get('groupLinkInput').touched && addGroupForm.get('groupLinkInput').invalid" 
+                        type="text" class="form-control" formControlName="groupLinkInput" placeholder="Enter group URL">
+                    </div>
+                    <div class="form-group">
+                        <label>Responsible</label>
+                        <input [class.is-invalid]="addGroupForm.get('groupResponsibleInput').touched && addGroupForm.get('groupResponsibleInput').invalid" 
+                        type="text" class="form-control" formControlName="groupResponsibleInput" placeholder="Enter group responsible">
+                    </div>
+                    <div class="span6" style="float: none; margin: 0 auto;">
+                        <button class="btn btn-info" type="submit" [disabled]="!addGroupForm.valid">Add Group</button> 
+                    </div>
+                </form>
+            </div>
+          </div>
+      </div>
+  </div>
